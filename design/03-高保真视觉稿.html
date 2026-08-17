@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Medke 官网 · 高保真视觉稿 v1.0（门槛③评审用）</title>
+<style>
+  :root { --acc:#243181; --cta:#0047FF; --cta-h:#0038CC; --red:#90181A; --ink:#111111; --mut:#4C5462; --meta:#8A9099; --line:#D7D8D3; --bg:#F0F1F4; --soft:#E8EBF7; --warm:#E8EBF3; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"HarmonyOS Sans SC","HarmonyOS Sans","Microsoft YaHei",system-ui,sans-serif; background:#e7e9ee; color:var(--ink); padding-bottom:60px; }
+  .topbar { position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--line); padding:10px 16px; }
+  .topbar h1 { font-size:16px; font-weight:700; margin-bottom:8px; }
+  .jump { display:flex; gap:6px; flex-wrap:wrap; }
+  .jump a { font-size:12px; color:var(--acc); text-decoration:none; border:1px solid var(--line); padding:3px 9px; border-radius:999px; background:#fff; }
+  .jump a:hover { background:var(--soft); }
+  main { max-width:1000px; margin:0 auto; padding:20px 16px; }
+  .mock { margin-bottom:44px; scroll-margin-top:90px; }
+  .mock > h2 { font-size:18px; font-weight:700; margin-bottom:4px; }
+  .mock > .path { font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--mut); display:block; margin-bottom:14px; }
+  .mw { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 6px 24px rgba(17,17,17,.08); margin-bottom:18px; }
+  .mm { background:#fff; border:1px solid var(--line); border-radius:18px; overflow:hidden; max-width:340px; box-shadow:0 6px 24px rgba(17,17,17,.08); }
+  .mmwrap { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start; }
+  .tag { display:inline-block; font-size:11px; color:var(--mut); background:var(--bg); border:1px solid var(--line); border-radius:999px; padding:2px 10px; margin-bottom:10px; }
+  .tag::before { content:"📱 移动端 "; font-weight:600; }
+  /* ---- shared components (desktop mock) ---- */
+  .mh { display:flex; align-items:center; gap:22px; padding:12px 28px; border-bottom:1px solid var(--line); background:#fff; }
+  .mh img { height:34px; }
+  .mh .links { display:flex; gap:18px; font-size:13px; color:var(--ink); }
+  .mh .links b { color:var(--acc); }
+  .mh .sp { flex:1; }
+  .btn { display:inline-flex; align-items:center; gap:6px; background:var(--cta); color:#fff; border-radius:8px; padding:9px 18px; font-size:13px; font-weight:500; }
+  .btn-ghost { background:#fff; color:var(--acc); border:1px solid var(--acc); }
+  .btn-ghost2 { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.6); }
+  .hero { display:flex; gap:30px; padding:48px 40px; background:linear-gradient(180deg,#fff 0%, var(--soft) 100%); }
+  .hero .c { flex:1.1; }
+  .hero .c2 { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; }
+  .hero .c2 img { width:100%; max-width:300px; border-radius:12px; }
+  .chipline { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+  .chip { font-size:11px; color:var(--mut); background:#fff; border:1px solid var(--line); border-radius:999px; padding:3px 10px; }
+  .eyebrow { font-size:12px; font-weight:500; letter-spacing:.08em; color:var(--cta); }
+  .h1 { font-size:34px; line-height:1.15; font-weight:700; margin:10px 0 14px; }
+  .lead { font-size:14px; color:var(--mut); line-height:1.7; }
+  .bullets { margin:16px 0 20px; padding:0; list-style:none; display:grid; gap:8px; }
+  .bullets li { font-size:13px; color:var(--ink); display:flex; gap:8px; align-items:flex-start; }
+  .bullets li::before { content:"✓"; color:var(--cta); font-weight:700; }
+  .stats { display:flex; gap:0; border-bottom:1px solid var(--line); background:#fff; }
+  .stats .s { flex:1; text-align:center; padding:22px 8px; border-right:1px solid var(--line); }
+  .stats .s:last-child { border-right:none; }
+  .stats .n { font-size:26px; font-weight:700; color:var(--acc); font-family:ui-monospace,Menlo,monospace; }
+  .stats .l { font-size:12px; color:var(--mut); margin-top:4px; }
+  .sec { padding:40px 28px; }
+  .sec-title { font-size:22px; font-weight:700; text-align:center; margin-bottom:6px; }
+  .sec-sub { font-size:13px; color:var(--mut); text-align:center; margin-bottom:24px; }
+  .grid8 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .pcard { border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff; }
+  .pcard img { width:100%; height:84px; object-fit:cover; display:block; }
+  .pcard .t { padding:10px 12px; font-size:13px; font-weight:600; }
+  .pcard .d { padding:0 12px 12px; font-size:11px; color:var(--mut); }
+  .seg4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .segc { border:1px solid var(--line); border-radius:12px; padding:18px 14px; background:#fff; }
+  .segc .ic { width:34px; height:34px; border-radius:9px; background:var(--soft); color:var(--acc); display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:10px; }
+  .segc h4 { font-size:14px; margin-bottom:6px; }
+  .segc p { font-size:11.5px; color:var(--mut); line-height:1.55; margin-bottom:10px; }
+  .segc a { font-size:12px; color:var(--cta); font-weight:500; text-decoration:none; }
+  .band { background:var(--soft); border-top:1px solid #cdd5ef; border-bottom:1px solid #cdd5ef; text-align:center; padding:30px 20px; }
+  .band h3 { font-size:20px; color:var(--acc); font-weight:700; margin-bottom:10px; }
+  .proc3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .proc { border:1px solid var(--line); border-radius:12px; padding:16px; background:#fff; }
+  .proc .no { font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--cta); font-weight:700; }
+  .proc h4 { font-size:13.5px; margin:6px 0; }
+  .proc p { font-size:11.5px; color:var(--mut); line-height:1.55; }
+  .apps4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .appc { border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff; }
+  .appc img { width:100%; height:76px; object-fit:cover; display:block; }
+  .appc .t { padding:10px 12px; font-size:13px; font-weight:600; }
+  .appc .d { padding:0 12px 12px; font-size:11px; color:var(--mut); }
+  .about-split { display:flex; gap:26px; align-items:center; }
+  .about-split img { width:220px; border-radius:12px; }
+  .about-split .t2 { font-size:20px; font-weight:700; margin-bottom:8px; }
+  .quotes { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .q { border:1px solid var(--line); border-radius:12px; padding:14px; background:#fff; font-size:12px; line-height:1.6; }
+  .q .who { margin-top:8px; font-weight:600; font-size:11.5px; color:var(--acc); }
+  .certs { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .cert { font-size:12px; font-weight:600; color:var(--acc); border:1.5px solid var(--acc); border-radius:8px; padding:6px 14px; background:#fff; }
+  .fq { background:var(--acc); color:#C6CDE0; }
+  .fq .fi { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:18px; padding:26px 28px; }
+  .fq img { height:30px; }
+  .fq .sl { color:#fff; font-weight:700; font-size:13px; margin-bottom:8px; }
+  .fq .fl { font-size:11.5px; line-height:1.6; }
+  .aux { height:12px; background:url('../public/assets/images/brand/aux-white.svg') repeat-x center top / 40px 40px; opacity:.5; }
+  /* forms / tables */
+  .searchbar { display:flex; gap:8px; max-width:560px; margin:0 auto 22px; }
+  .searchbar input { flex:1; border:1px solid var(--line); border-radius:8px; padding:10px 14px; font-size:13px; }
+  .brandgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .brandc { border:1px solid var(--line); border-radius:12px; padding:18px; text-align:center; background:#fff; font-size:13px; font-weight:600; }
+  .brandc small { display:block; color:var(--meta); font-weight:400; font-size:11px; margin-top:4px; }
+  .feat6 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .feat { border:1px solid var(--line); border-radius:12px; padding:14px; background:#fff; font-size:12px; }
+  .feat b { display:block; margin-bottom:4px; font-size:13px; }
+  .feat p { color:var(--mut); font-size:11.5px; line-height:1.5; }
+  .gal { display:flex; gap:20px; }
+  .gal .big { width:46%; }
+  .gal .big img { width:100%; border-radius:12px; border:1px solid var(--line); }
+  .gal .thumbs { display:flex; gap:8px; margin-top:8px; }
+  .gal .thumbs img { width:56px; height:56px; object-fit:cover; border-radius:8px; border:1px solid var(--line); }
+  .gal .info { flex:1; }
+  .compat { background:var(--acc); color:#fff; border-radius:12px; padding:22px; }
+  .compat .tt { font-size:12px; letter-spacing:.08em; color:#ADB8E3; text-transform:uppercase; margin-bottom:12px; }
+  .ctable { width:100%; border-collapse:collapse; font-size:12px; }
+  .ctable th { text-align:left; color:#ADB8E3; font-weight:500; padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.16); }
+  .ctable td { padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.12); }
+  .spec { width:100%; border-collapse:collapse; font-size:12.5px; margin-top:18px; }
+  .spec th { text-align:left; width:38%; font-weight:500; color:var(--mut); border-bottom:1px solid var(--line); padding:8px 10px; background:var(--bg); }
+  .spec td { border-bottom:1px solid var(--line); padding:8px 10px; font-family:ui-monospace,Menlo,monospace; }
+  .form { border:1px solid var(--line); border-radius:12px; padding:20px; max-width:520px; }
+  .form label { font-size:12px; color:var(--mut); display:block; margin:10px 0 4px; }
+  .form input, .form select, .form textarea { width:100%; border:1px solid var(--line); border-radius:8px; padding:9px 12px; font-size:13px; font-family:inherit; }
+  .form textarea { height:64px; }
+  .timeline { border-left:2px solid var(--line); margin-left:8px; padding-left:16px; display:grid; gap:10px; }
+  .trow { font-size:12.5px; color:var(--mut); }
+  .trow b { color:var(--acc); font-family:ui-monospace,Menlo,monospace; margin-right:8px; }
+  .panel-ok { background:#EEF8F1; border:1px solid #CDE9D6; border-radius:14px; text-align:center; padding:44px 20px; }
+  .panel-ok .ic { width:52px; height:52px; border-radius:50%; background:#0E8345; color:#fff; font-size:26px; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; }
+  .panel-ok h3 { font-size:20px; margin-bottom:6px; }
+  .panel-ok p { font-size:13px; color:var(--mut); }
+  /* mobile frame: simple stacked */
+  .mph { display:flex; align-items:center; gap:8px; padding:10px 14px; border-bottom:1px solid var(--line); }
+  .mph img { height:22px; }
+  .mph .sp { flex:1; }
+  .mph .b { width:64px; height:26px; border-radius:6px; background:var(--cta); color:#fff; font-size:10px; display:flex; align-items:center; justify-content:center; }
+  .mhero { padding:20px 16px; background:linear-gradient(180deg,#fff,var(--soft)); }
+  .mhero .h1m { font-size:20px; font-weight:700; line-height:1.3; margin:8px 0 8px; }
+  .mhero .lm { font-size:12px; color:var(--mut); line-height:1.6; }
+  .mbtn { margin-top:12px; }
+  .msec { padding:18px 16px; border-top:1px solid var(--line); }
+  .msec h4 { font-size:14px; font-weight:700; margin-bottom:10px; }
+  .mgrid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .mcard { border:1px solid var(--line); border-radius:10px; padding:10px; font-size:11.5px; font-weight:600; text-align:center; }
+  .mcard img { width:100%; height:52px; object-fit:cover; border-radius:6px; margin-bottom:6px; }
+  .mfoot { background:var(--acc); color:#C6CDE0; padding:18px 16px; font-size:11px; }
+  .mfoot b { color:#fff; display:block; margin-bottom:6px; }
+  .mnote { font-size:11px; color:var(--meta); margin-top:10px; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>Medke 官网 · 高保真视觉稿 v1.0（门槛③评审用） <span style="font-size:12px;color:var(--mut);font-weight:400;">—— VIS 上色 · 真实文案图片 · 桌面+移动双视口 · 逐页批注</span></h1>
+  <nav class="jump">
+    <a href="#p1">1.首页</a><a href="#p2">2.全部产品</a><a href="#p3">3.产品线</a><a href="#p4">4.产品详情</a><a href="#p5">5.品牌兼容</a><a href="#p6">6.品牌详情</a><a href="#p7">7.应用场景</a><a href="#p8">8.关于我们</a><a href="#p9">9.团队</a><a href="#p10">10.FAQ</a><a href="#p11">11.博客</a><a href="#p12">12.联系</a><a href="#p13">13.成功</a>
+  </nav>
+</div>
+<main>
+
+<!-- ================= 1. 首页 ================= -->
+<section class="mock" id="p1">
+  <h2>1. 首页</h2><span class="path">/</span>
+  <div class="mw">
+    <div class="mh">
+      <img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" />
+      <div class="links"><b>全部产品</b><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><span>博客</span><span>联系我们</span></div>
+      <div class="sp"></div>
+      <span class="btn">Get a Quote</span>
+    </div>
+    <div class="hero">
+      <div class="c">
+        <span class="eyebrow">MEDKE® · SHENZHEN · EST. 2008</span>
+        <div class="h1">17 Years of Focus on Medical Accessories Production and Manufacturing</div>
+        <p class="lead">Vital links, Healthier lives.</p>
+        <ul class="bullets">
+          <li>Source factory provides cost-effective compatible products</li>
+          <li>Quality control strict under ISO13485 quality management</li>
+          <li>All cables are MDR compliant, CE / FDA / MHRA certified</li>
+          <li>All-in-One Solution for Patient Monitor Accessories</li>
+        </ul>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <span class="btn">Browse 472 Products</span>
+          <span class="btn btn-ghost">Request a Full Catalog</span>
+        </div>
+      </div>
+      <div class="c2">
+        <img src="../public/assets/images/hero/hero-product.jpg" alt="Medke product" />
+        <div class="chipline"><span class="chip">Philips</span><span class="chip">GE</span><span class="chip">Mindray</span><span class="chip">Drager</span></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="s"><div class="n">100+</div><div class="l">Cooperative Clients</div></div>
+      <div class="s"><div class="n">4000㎡</div><div class="l">Smart Factory</div></div>
+      <div class="s"><div class="n">90%+</div><div class="l">Compatible Brands</div></div>
+      <div class="s"><div class="n">349+</div><div class="l">Custom Cases</div></div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Choose Your Competitive Product, Now!</div>
+      <div class="sec-sub">8 product lines covering your monitor &amp; device needs</div>
+      <div class="grid8">
+        <div class="pcard"><img src="../public/assets/images/categories/patient-monitoring.jpg" alt="SpO2"/><div class="t">SpO2 Sensors</div><div class="d">SpO2 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/categories/esu.jpg" alt="ESU"/><div class="t">ESU</div><div class="d">ESU 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/esu-pad/esu-pad-01.jpg" alt="AED"/><div class="t">AED</div><div class="d">AED 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/categories/ventilator.jpg" alt="NIBP"/><div class="t">NIBP</div><div class="d">NIBP 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/categories/ekg.jpg" alt="ECG/EKG"/><div class="t">ECG / EKG</div><div class="d">ECG 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/ibp-cable/ibp-cable-01.jpg" alt="IBP"/><div class="t">IBP</div><div class="d">IBP 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/temp-probe/temp-probe-01.jpg" alt="TEMP"/><div class="t">TEMP</div><div class="d">TEMP 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/ecg-cable/ecg-cable-01.jpg" alt="EEG"/><div class="t">EEG</div><div class="d">EEG 系列</div></div>
+      </div>
+      <div style="text-align:center;margin-top:18px;"><span class="btn">More Products</span></div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">We Serve Every Kind of Partner</div>
+      <div class="sec-sub">Join us today — your business type decides your专属 plan</div>
+      <div class="seg4">
+        <div class="segc"><div class="ic">🏬</div><h4>Wholesale Agent</h4><p>One-stop compatible accessories supply with flexible small/large order mix.</p><a href="#">Join Us Today →</a></div>
+        <div class="segc"><div class="ic">🏭</div><h4>OEM &amp; ODM</h4><p>Custom connectors, cables, packaging with your brand labeling.</p><a href="#">Join Us Today →</a></div>
+        <div class="segc"><div class="ic">🔧</div><h4>Trader or Repairer</h4><p>Reliable stock and fast dispatch to keep your shelves full.</p><a href="#">Join Us Today →</a></div>
+        <div class="segc"><div class="ic">🤝</div><h4>Broker</h4><p>Share profits with us — your network, our factory.</p><a href="#">Join Us Today →</a></div>
+      </div>
+    </div>
+    <div class="band"><h3>One-Stop Solution: Save Worry, Save Trouble, Save Cost!</h3><span class="btn">Get a Quote Now</span></div>
+    <div class="sec">
+      <div class="sec-title">Our Service Process</div>
+      <div class="proc3">
+        <div class="proc"><div class="no">01</div><h4>Pre Development</h4><p>Market research, product design, certification assistance.</p></div>
+        <div class="proc"><div class="no">02</div><h4>Project Experiment</h4><p>Mold opening, validation, mass production.</p></div>
+        <div class="proc"><div class="no">03</div><h4>Post Marketing</h4><p>Exhibition &amp; platform &amp; site operation guidance, posters.</p></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Built for Every Care Setting</div>
+      <div class="apps4">
+        <div class="appc"><img src="../public/assets/images/applications/icu.png" alt="ICU"/><div class="t">ICU Monitoring</div><div class="d">ICU 场景</div></div>
+        <div class="appc"><img src="../public/assets/images/applications/or.png" alt="OR"/><div class="t">Operating Room</div><div class="d">OR 场景</div></div>
+        <div class="appc"><img src="../public/assets/images/applications/emergency.png" alt="ED"/><div class="t">Emergency Dept.</div><div class="d">ED 场景</div></div>
+        <div class="appc"><img src="../public/assets/images/applications/ward.png" alt="Ward"/><div class="t">General Ward</div><div class="d">Ward 场景</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="about-split">
+        <div><div class="t2">Welcome to Medke</div><p class="lead" style="font-size:13px;">Established in 2008 with registered capital of RMB 10 million. Located in Shenzhen, we export to 100+ countries with complete medical certifications.</p></div>
+        <img src="../public/assets/images/about/quality-lab.png" alt="Medke factory" style="width:200px;" />
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Valuable Partner</div>
+      <div class="quotes">
+        <div class="q">“The negotiating process was fast and easy. Products are exceeding our expectations.”<div class="who">Alexander · Cyprus</div></div>
+        <div class="q">“We received an immediate response and professional guidance.”<div class="who">Wilma</div></div>
+        <div class="q">“Shipped quickly. The seller went above and beyond.”<div class="who">Hiki · Japan</div></div>
+        <div class="q">“Well packed and arrived a day earlier than expected.”<div class="who">Chris</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Medke Certification</div>
+      <div class="certs"><span class="cert">TUV</span><span class="cert">MDD</span><span class="cert">ISO 13485</span><span class="cert">FSC</span><span class="cert">FDA</span></div>
+    </div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero">
+        <div class="eyebrow" style="font-size:10px;">MEDKE® · SHENZHEN</div>
+        <div class="h1m">17 Years of Focus on Medical Accessories</div>
+        <div class="lm">Source factory · ISO13485 · CE/FDA certified. Vital links, Healthier lives.</div>
+        <div class="mbtn"><span class="btn" style="width:100%;justify-content:center;">Get a Quote</span></div>
+      </div>
+      <div class="msec"><h4>Product Lines</h4><div class="mgrid"><div class="mcard">SpO2</div><div class="mcard">ECG</div><div class="mcard">NIBP</div><div class="mcard">IBP</div><div class="mcard">TEMP</div><div class="mcard">ESU</div><div class="mcard">AED</div><div class="mcard">EEG</div></div></div>
+      <div class="msec"><h4>Partners</h4><div class="mgrid"><div class="mcard">Wholesale</div><div class="mcard">OEM/ODM</div><div class="mcard">Trader</div><div class="mcard">Broker</div></div></div>
+      <div class="msec" style="background:var(--soft);"><h4>One-Stop Solution</h4><div class="lm">Save Worry, Save Trouble, Save Cost!</div><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Get a Quote</span></div></div>
+      <div class="msec"><h4>Applications</h4><div class="mgrid"><div class="mcard">ICU</div><div class="mcard">OR</div><div class="mcard">ED</div><div class="mcard">Ward</div></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">关键变化：导航折叠为 Quote 按钮；产品线/分层/应用 2 列网格；CTA 全宽</span></div>
+  </div>
+</section>
+<!-- ================= 2. 全部产品 ================= -->
+<section class="mock" id="p2">
+  <h2>2. 全部产品</h2><span class="path">/products/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><b>全部产品</b><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="sec-title">All Products</div>
+      <div class="sec-sub">8 product lines · 472 SKUs · 90%+ brand compatibility</div>
+      <div class="searchbar"><input placeholder="Search by model, OEM#, brand…" /><span class="btn">Search</span></div>
+      <div class="grid8">
+        <div class="pcard"><img src="../public/assets/images/categories/patient-monitoring.jpg" alt="SpO2"/><div class="t">SpO2 Sensors</div><div class="d">SpO2 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/categories/esu.jpg" alt="ESU"/><div class="t">ESU</div><div class="d">ESU 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/esu-pad/esu-pad-01.jpg" alt="AED"/><div class="t">AED</div><div class="d">AED 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/nibp-hose/nibp-hose-01.jpg" alt="NIBP"/><div class="t">NIBP</div><div class="d">NIBP 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/categories/ekg.jpg" alt="ECG"/><div class="t">ECG / EKG</div><div class="d">ECG 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/ibp-cable/ibp-cable-01.jpg" alt="IBP"/><div class="t">IBP</div><div class="d">IBP 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/temp-probe/temp-probe-01.jpg" alt="TEMP"/><div class="t">TEMP</div><div class="d">TEMP 系列</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/ecg-cable/ecg-cable-01.jpg" alt="EEG"/><div class="t">EEG</div><div class="d">EEG 系列</div></div>
+      </div>
+      <div style="text-align:center;margin-top:18px;"><span class="btn">Request a Full Catalog</span></div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">By Compatible Brand</div>
+      <div class="sec-sub">90%+ of mainstream patient monitor brands</div>
+      <div class="brandgrid">
+        <div class="brandc">Philips<small>PM · Fetal</small></div>
+        <div class="brandc">GE<small>PM · ESU</small></div>
+        <div class="brandc">Mindray<small>BeneView</small></div>
+        <div class="brandc">Drager<small>V-series</small></div>
+        <div class="brandc">Fukuda<small>Dynascope</small></div>
+        <div class="brandc">Nihon Kohden<small>BSM</small></div>
+        <div class="brandc">Bionet<small>BM series</small></div>
+        <div class="brandc">Aeon<small>Fetal Monitor</small></div>
+      </div>
+    </div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="msec"><h4>All Products</h4><div class="mgrid"><div class="mcard">SpO2</div><div class="mcard">ESU</div><div class="mcard">AED</div><div class="mcard">NIBP</div><div class="mcard">ECG</div><div class="mcard">IBP</div><div class="mcard">TEMP</div><div class="mcard">EEG</div></div></div>
+      <div class="msec"><h4>Brands</h4><div class="chipline"><span class="chip">Philips</span><span class="chip">GE</span><span class="chip">Mindray</span><span class="chip">Drager</span><span class="chip">Aeon</span></div></div>
+      <div class="msec" style="background:var(--soft);"><h4>Full Catalog</h4><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Request Now</span></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">分类 2 列网格 + 顶部搜索；品牌横向 chips</span></div>
+  </div>
+</section>
+<!-- ================= 3. 产品线页（SpO2 示例） ================= -->
+<section class="mock" id="p3">
+  <h2>3. 产品线页（以 SpO2 为例）</h2><span class="path">/spo2/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><b>全部产品</b><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="hero">
+      <div class="c">
+        <span class="eyebrow">SPO2</span>
+        <div class="h1">Reliable SpO2 Sensors &amp; Cables</div>
+        <p class="lead">Disposable &amp; reusable SpO2 sensors, adapter cables and accessories — compatible with Philips, GE, Mindray, Drager and 90%+ mainstream monitors, with CE / FDA certified quality.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;"><span class="btn">Quote Now</span><span class="btn btn-ghost">View Datasheet</span></div>
+      </div>
+      <div class="c2"><img src="../public/assets/images/products/spo2-sensor/spo2-sensor-01.jpg" alt="SpO2 sensor" /><div class="chipline"><span class="chip">Philips</span><span class="chip">GE</span><span class="chip">Mindray</span><span class="chip">Drager</span><span class="chip">Nihon Kohden</span></div></div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Our SpO2 Product Line</div>
+      <div class="sec-sub">Disposable · Reusable · Adapters · Accessories</div>
+      <div class="grid8">
+        <div class="pcard"><img src="../public/assets/images/products/spo2-sensor/spo2-sensor-01.jpg" alt="Disposable"/><div class="t">Disposable</div><div class="d">一次性 SpO2 传感器</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/spo2-sensor/spo2-sensor-02.jpg" alt="Reusable"/><div class="t">Reusable</div><div class="d">可重复使用型</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/spo2-sensor/spo2-sensor-03.jpg" alt="Adapters"/><div class="t">Adapters</div><div class="d">转接头 / 延长线</div></div>
+        <div class="pcard"><img src="../public/assets/images/categories/patient-monitoring.jpg" alt="Accessories"/><div class="t">Accessories</div><div class="d">血氧配件</div></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Why Partner with Us</div>
+      <div class="feat6">
+        <div class="feat"><b>Direct Factory</b><p>Source pricing, no middleman markup.</p></div>
+        <div class="feat"><b>ISO 13485 QC</b><p>Strict quality control on every batch.</p></div>
+        <div class="feat"><b>MDR · CE · FDA</b><p>Full certification documentation ready.</p></div>
+        <div class="feat"><b>OEM &amp; ODM</b><p>Custom connector, cable &amp; packaging.</p></div>
+        <div class="feat"><b>Fast Delivery</b><p>3–7 days for stock items.</p></div>
+        <div class="feat"><b>24h Support</b><p>Technical &amp; sales team always online.</p></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Inside Our Factory</div>
+      <div class="sec-sub">Smart factory · 4000㎡ · 100+ workers</div>
+      <div class="apps4">
+        <div class="appc"><img src="../public/assets/images/about/factory-line.png" alt="Production line"/><div class="t">Production Line</div><div class="d">自动化产线</div></div>
+        <div class="appc"><img src="../public/assets/images/about/quality-lab.png" alt="Quality lab"/><div class="t">Quality Lab</div><div class="d">来料检验实验室</div></div>
+        <div class="appc"><img src="../public/assets/images/about/factory-02.jpg" alt="Workshop"/><div class="t">Workshop</div><div class="d">车间实拍</div></div>
+        <div class="appc"><img src="../public/assets/images/about/factory-03.jpg" alt="Warehouse"/><div class="t">Warehouse</div><div class="d">成品仓储</div></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Our Awesome Clients</div>
+      <div class="chipline" style="margin-top:8px;"><span class="chip">Philips</span><span class="chip">GE</span><span class="chip">Mindray</span><span class="chip">Drager</span><span class="chip">Fukuda</span><span class="chip">Nihon Kohden</span><span class="chip">Bionet</span><span class="chip">Aeon</span></div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">FAQ</div>
+      <div class="proc3">
+        <div class="proc"><div class="no">Q1</div><h4>What is the MOQ?</h4><p>100 pcs mixed for stock models; lower for OEM trials.</p></div>
+        <div class="proc"><div class="no">Q2</div><h4>Can you do OEM packaging?</h4><p>Yes — custom connectors, cables and branded packaging.</p></div>
+        <div class="proc"><div class="no">Q3</div><h4>How long is delivery?</h4><p>3–7 days for stock, 15–25 days for OEM production.</p></div>
+      </div>
+    </div>
+    <div class="band"><h3>Request a Wholesale Quote</h3><span class="btn">Get Quote Now</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="eyebrow" style="font-size:10px;">SPO2</div><div class="h1m">Reliable SpO2 Sensors &amp; Cables</div><div class="lm">Disposable &amp; reusable · CE/FDA · 90%+ monitor compatibility.</div><div class="mbtn"><span class="btn" style="width:100%;justify-content:center;">Quote Now</span></div></div>
+      <div class="msec"><h4>SpO2 Product Line</h4><div class="mgrid"><div class="mcard">Disposable</div><div class="mcard">Reusable</div><div class="mcard">Adapters</div><div class="mcard">Accessories</div></div></div>
+      <div class="msec"><h4>Why Us</h4><div class="mgrid"><div class="mcard">Direct Factory</div><div class="mcard">ISO 13485</div><div class="mcard">CE · FDA</div><div class="mcard">OEM / ODM</div></div></div>
+      <div class="msec" style="background:var(--soft);"><h4>Wholesale Quote</h4><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Request Now</span></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">已确认删除痛点板块与信任段落；保留 hero→产品→优势→工厂→客户→FAQ→CTA</span></div>
+  </div>
+</section>
+<!-- ================= 4. 产品详情 ================= -->
+<section class="mock" id="p4">
+  <h2>4. 产品详情</h2><span class="path">/product/aeon-fetal-probe/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><b>全部产品</b><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div style="padding:14px 28px 0;font-size:12px;color:var(--mut);">Home / Products / Fetal Monitoring / Aeon Fetal Probe</div>
+    <div class="sec">
+      <div class="gal">
+        <div class="big"><img src="../public/assets/images/products/foam-electrode/foam-electrode-01.jpg" alt="Aeon Fetal Probe"/><div class="thumbs"><img src="../public/assets/images/products/foam-electrode/foam-electrode-01.jpg" alt="v1"/><img src="../public/assets/images/categories/fetal.jpg" alt="v2"/><img src="../public/assets/images/products/temp-probe/temp-probe-01.jpg" alt="v3"/></div></div>
+        <div class="info">
+          <span class="eyebrow">FETAL</span>
+          <div class="t2" style="font-size:22px;font-weight:700;margin:8px 0;">Aeon Fetal Probe</div>
+          <p class="lead" style="font-size:13px;">Compatible fetal monitoring probe for Aeon fetal monitors — OEM quality, 12-month warranty, TUV / CE / FDA certified.</p>
+          <div class="chipline" style="justify-content:flex-start;margin:12px 0;"><span class="chip">Aeon</span><span class="chip">TUV</span><span class="chip">CE</span><span class="chip">FDA</span></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;"><span class="btn">Get a Quote</span><span class="btn btn-ghost">Download Datasheet</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="compat">
+        <div class="tt">Compatible With</div>
+        <table class="ctable">
+          <tr><th>制造商</th><th>探针选项</th><th>订购代码</th><th>兼容型号</th><th>OEM#</th></tr>
+          <tr><td>Aeon</td><td>US Transducer</td><td>FM-040</td><td>A100P</td><td>—</td></tr>
+          <tr><td>Aeon</td><td>TOCO</td><td>FM-041</td><td>A100P</td><td>—</td></tr>
+          <tr><td>Philips</td><td>US Transducer</td><td>FM-0xx</td><td>MX Series</td><td>—</td></tr>
+        </table>
+      </div>
+      <table class="spec">
+        <tr><th>Type</th><td>Fetal US / TOCO probe</td></tr>
+        <tr><th>Cable Length</th><td>3 m (standard, custom available)</td></tr>
+        <tr><th>Connector</th><td>Aeon / Philips compatible plug</td></tr>
+        <tr><th>Packaging</th><td>Individual bag · export carton · OEM label</td></tr>
+      </table>
+    </div>
+    <div class="band"><h3>Bulk Ordering</h3><span class="btn">Get Wholesale Price</span></div>
+    <div class="sec">
+      <div class="sec-title">Request a Quote</div>
+      <div class="form">
+        <label>Business Type</label><select><option>Wholesale Agent</option><option>OEM &amp; ODM</option><option>Trader / Repairer</option><option>Broker</option></select>
+        <label>Full Name</label><input placeholder="Your name" />
+        <label>Email</label><input placeholder="name@company.com" />
+        <label>Phone</label><input placeholder="+86…" />
+        <label>Message</label><textarea placeholder="Quantity, target model, packaging…"></textarea>
+        <div style="margin-top:12px;"><span class="btn" style="width:100%;justify-content:center;">Send Inquiry</span></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Related Products</div>
+      <div class="grid8">
+        <div class="pcard"><img src="../public/assets/images/products/ecg-cable/ecg-cable-01.jpg" alt="ECG"/><div class="t">ECG Cable</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/temp-probe/temp-probe-01.jpg" alt="TEMP"/><div class="t">Temp Probe</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/spo2-sensor/spo2-sensor-01.jpg" alt="SpO2"/><div class="t">SpO2 Sensor</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/nibp-hose/nibp-hose-01.jpg" alt="NIBP"/><div class="t">NIBP Hose</div></div>
+      </div>
+    </div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="eyebrow" style="font-size:10px;">FETAL</div><div class="h1m">Aeon Fetal Probe</div><div class="lm">OEM quality · TUV / CE / FDA · 12-month warranty.</div><div class="mbtn"><span class="btn" style="width:100%;justify-content:center;">Get a Quote</span></div></div>
+      <div class="msec"><h4>Compatibility</h4><div class="mgrid"><div class="mcard">Aeon US · FM-040</div><div class="mcard">Aeon TOCO · FM-041</div><div class="mcard">Philips · FM-0xx</div><div class="mcard">MX Series</div></div></div>
+      <div class="msec"><h4>Specs</h4><div class="lm">Type: Fetal US / TOCO · Cable: 3m · Connector: Aeon/Philips plug</div></div>
+      <div class="msec" style="background:var(--soft);"><h4>Quote</h4><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Send Inquiry</span></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">图库→兼容表→规格→询盘表单纵向堆叠；询盘 CTA 常驻</span></div>
+  </div>
+</section>
+<!-- ================= 5. 品牌兼容 ================= -->
+<section class="mock" id="p5">
+  <h2>5. 品牌兼容</h2><span class="path">/brands/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><b>品牌兼容</b><span>应用场景</span><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="sec-title">Compatible Brands</div>
+      <div class="sec-sub">90%+ of mainstream patient monitor brands covered</div>
+      <div class="brandgrid">
+        <div class="brandc">Philips<small>IntelliVue · MX · Fetal</small></div>
+        <div class="brandc">GE<small>Dash · CARESCAPE</small></div>
+        <div class="brandc">Mindray<small>BeneView · iPM</small></div>
+        <div class="brandc">Drager<small>Vista · Infinity</small></div>
+        <div class="brandc">Fukuda<small>Dynascope</small></div>
+        <div class="brandc">Nihon Kohden<small>BSM · Life Scope</small></div>
+        <div class="brandc">Bionet<small>BM series</small></div>
+        <div class="brandc">Aeon<small>Fetal Monitor</small></div>
+      </div>
+    </div>
+    <div class="band"><h3>Compatible with, not original manufacturer</h3><p class="lead" style="font-size:12px;color:var(--mut);">All Medke products are designed as compatible replacements. Brand names &amp; logos are trademarks of their respective owners, used for compatibility reference only.</p></div>
+    <div class="sec" style="text-align:center;"><span class="btn">Check Your Model Compatibility</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="msec"><h4>Brands</h4><div class="mgrid"><div class="mcard">Philips</div><div class="mcard">GE</div><div class="mcard">Mindray</div><div class="mcard">Drager</div><div class="mcard">Fukuda</div><div class="mcard">Nihon Kohden</div><div class="mcard">Bionet</div><div class="mcard">Aeon</div></div></div>
+      <div class="msec" style="background:var(--soft);"><div class="lm" style="font-size:11px;">Compatible with, not original manufacturer. Brands are trademarks of their owners.</div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">品牌 2 列网格 + 免责声明弱化展示</span></div>
+  </div>
+</section>
+<!-- ================= 6. 品牌详情 ================= -->
+<section class="mock" id="p6">
+  <h2>6. 品牌详情（Philips 示例）</h2><span class="path">/brands/philips/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><b>品牌兼容</b><span>应用场景</span><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div style="padding:14px 28px 0;font-size:12px;color:var(--mut);">Home / Brands / Philips</div>
+    <div class="sec">
+      <div class="sec-title">Philips Compatible Products</div>
+      <div class="sec-sub">Compatible accessories for IntelliVue · MX Series · Fetal monitors</div>
+      <div class="grid8">
+        <div class="pcard"><img src="../public/assets/images/products/foam-electrode/foam-electrode-01.jpg" alt="Fetal"/><div class="t">Fetal Probe</div><div class="d">FM-0xx · MX Series</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/ecg-cable/ecg-cable-01.jpg" alt="ECG"/><div class="t">ECG Trunk Cable</div><div class="d">M1668A 等</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/spo2-sensor/spo2-sensor-01.jpg" alt="SpO2"/><div class="t">SpO2 Sensor</div><div class="d">M1191A 兼容</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/temp-probe/temp-probe-01.jpg" alt="TEMP"/><div class="t">Temp Probe</div><div class="d">21090A 兼容</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/ibp-cable/ibp-cable-01.jpg" alt="IBP"/><div class="t">IBP Cable</div><div class="d">M1566A 兼容</div></div>
+        <div class="pcard"><img src="../public/assets/images/products/nibp-hose/nibp-hose-01.jpg" alt="NIBP"/><div class="t">NIBP Hose</div><div class="d">M1575A 兼容</div></div>
+      </div>
+    </div>
+    <div class="band"><h3>Need Philips-compatible OEM Parts?</h3><span class="btn">Request a Quote</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="eyebrow" style="font-size:10px;">BRANDS / PHILIPS</div><div class="h1m">Philips Compatible Products</div><div class="lm">Fetal · ECG · SpO2 · TEMP · IBP · NIBP</div><div class="mbtn"><span class="btn" style="width:100%;justify-content:center;">Get a Quote</span></div></div>
+      <div class="msec"><h4>Top Products</h4><div class="mgrid"><div class="mcard">Fetal Probe</div><div class="mcard">ECG Cable</div><div class="mcard">SpO2 Sensor</div><div class="mcard">Temp Probe</div></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">品牌名+型号参考（OEM#）强化"兼容"心智</span></div>
+  </div>
+</section>
+<!-- ================= 7. 应用场景 ================= -->
+<section class="mock" id="p7">
+  <h2>7. 应用场景</h2><span class="path">/applications/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><span>品牌兼容</span><b>应用场景</b><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="sec-title">Built for Every Care Setting</div>
+      <div class="sec-sub">Real scenarios · real hospitals · proven compatibility</div>
+      <div class="apps4">
+        <div class="appc"><img src="../public/assets/images/applications/icu.png" alt="ICU"/><div class="t">ICU Monitoring</div><div class="d">ICU 重症监护场景</div></div>
+        <div class="appc"><img src="../public/assets/images/applications/or.png" alt="OR"/><div class="t">Operating Room</div><div class="d">手术室术中监测</div></div>
+        <div class="appc"><img src="../public/assets/images/applications/emergency.png" alt="ED"/><div class="t">Emergency Dept.</div><div class="d">急诊快速部署</div></div>
+        <div class="appc"><img src="../public/assets/images/applications/ward.png" alt="Ward"/><div class="t">General Ward</div><div class="d">普通病房日常监护</div></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Scenario Details</div>
+      <div class="seg4">
+        <div class="segc"><div class="ic">🏥</div><h4>ICU</h4><p>Multi-parameter monitoring 24/7 — high-cycle consumables, stable supply &amp; fast restock.</p><a href="#">View Products →</a></div>
+        <div class="segc"><div class="ic">⚕️</div><h4>Operating Room</h4><p>ESU pads, ECG &amp; SpO2 that withstand OR workflow, sterile-safe packaging options.</p><a href="#">View Products →</a></div>
+        <div class="segc"><div class="ic">🚑</div><h4>Emergency</h4><p>Quick-dispatch accessories for ED monitors and defibrillators (AED-compatible).</p><a href="#">View Products →</a></div>
+        <div class="segc"><div class="ic">🛏️</div><h4>General Ward</h4><p>Cost-effective disposable sensors for daily ward monitoring across 100+ beds.</p><a href="#">View Products →</a></div>
+      </div>
+    </div>
+    <div class="band"><h3>Tell Us Your Scenario — Get a Tailored Kit List</h3><span class="btn">Request a Kit List</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="h1m">Built for Every Care Setting</div><div class="lm">ICU · OR · Emergency · Ward</div></div>
+      <div class="msec"><h4>Scenarios</h4><div class="mgrid"><div class="mcard">ICU</div><div class="mcard">OR</div><div class="mcard">Emergency</div><div class="mcard">Ward</div></div></div>
+      <div class="msec" style="background:var(--soft);"><h4>Tailored Kit List</h4><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Request a Kit List</span></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">场景图 2 列网格 + 场景说明卡</span></div>
+  </div>
+</section>
+<!-- ================= 8. 关于我们 ================= -->
+<section class="mock" id="p8">
+  <h2>8. 关于我们</h2><span class="path">/about-us/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><span>品牌兼容</span><span>应用场景</span><b>关于我们</b><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="about-split">
+        <div>
+          <div class="t2">Welcome to Medke</div>
+          <p class="lead" style="font-size:13px;">Established in 2008 in Shenzhen with RMB 10 million registered capital. We focus on medical consumable accessories — patient monitor sensors, cables and probes — exported to 100+ countries under ISO 13485 quality management.</p>
+          <div style="display:flex;gap:10px;margin-top:14px;"><span class="btn">Get a Quote</span><span class="btn btn-ghost">Request a Catalog</span></div>
+        </div>
+        <img src="../public/assets/images/about/quality-lab.png" alt="Quality lab" />
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Our Journey</div>
+      <div class="timeline" style="max-width:520px;margin:0 auto;">
+        <div class="trow"><b>2008</b>注册成立 · 注册资本 100 万元 · 厂房 1000㎡</div>
+        <div class="trow"><b>2014</b>取得医疗耗材生产准入 · 启动 OEM / ODM 服务</div>
+        <div class="trow"><b>2024</b>智能工厂升级 · 厂房 4000㎡ · 100+ 出口国</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Factory at a Glance</div>
+      <div class="apps4">
+        <div class="appc"><img src="../public/assets/images/about/factory-01.jpg" alt="Factory"/><div class="t">Factory Exterior</div><div class="d">4000㎡ 智能工厂</div></div>
+        <div class="appc"><img src="../public/assets/images/about/factory-02.jpg" alt="Workshop"/><div class="t">Workshop</div><div class="d">无尘车间</div></div>
+        <div class="appc"><img src="../public/assets/images/about/factory-03.jpg" alt="Warehouse"/><div class="t">Warehouse</div><div class="d">成品仓 · 快速发货</div></div>
+        <div class="appc"><img src="../public/assets/images/about/quality-lab.png" alt="Lab"/><div class="t">Quality Lab</div><div class="d">来料/成品双重检验</div></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="about-split">
+        <img src="../public/assets/images/about/about-team.jpg" alt="Medke team" />
+        <div><div class="t2">Our Team</div><p class="lead" style="font-size:13px;">100+ professionals across sales, R&amp;D and QC. Bilingual sales team replies within 24 hours; R&amp;D supports custom connector and packaging development.</p></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Meet Our Clients</div>
+      <div class="chipline" style="margin-top:8px;"><span class="chip">Philips</span><span class="chip">GE</span><span class="chip">Mindray</span><span class="chip">Drager</span><span class="chip">Fukuda</span><span class="chip">Nihon Kohden</span><span class="chip">Bionet</span><span class="chip">Aeon</span></div>
+    </div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="h1m">Welcome to Medke</div><div class="lm">Shenzhen · Est. 2008 · 4000㎡ smart factory · 100+ countries</div></div>
+      <div class="msec"><h4>Journey</h4><div class="lm" style="font-size:11px;"><b>2008</b> 注册 100 万 · 1000㎡ ｜ <b>2014</b> 耗材准入 ｜ <b>2024</b> 智能工厂 4000㎡</div></div>
+      <div class="msec"><h4>Factory</h4><div class="mgrid"><div class="mcard">Factory</div><div class="mcard">Workshop</div><div class="mcard">Warehouse</div><div class="mcard">QC Lab</div></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">品牌故事→时间线→工厂→团队压缩为 4 屏</span></div>
+  </div>
+</section>
+<!-- ================= 9. 团队 ================= -->
+<section class="mock" id="p9">
+  <h2>9. 团队</h2><span class="path">/team/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><span>品牌兼容</span><span>应用场景</span><b>关于我们</b><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="sec-title">The Faces Behind our Success</div>
+      <div class="sec-sub">Leadership with 15+ years in medical consumables</div>
+      <div class="seg4">
+        <div class="segc"><div class="ic">👤</div><h4>Li Zhenzong</h4><p style="margin-bottom:0;">创始人 / Founder — 2008 年创立 Medke，主导工厂与供应链布局。</p></div>
+        <div class="segc"><div class="ic">👤</div><h4>Li Weitao</h4><p style="margin-bottom:0;">董事长 / Chairman — 集团战略与全球市场规划。</p></div>
+        <div class="segc"><div class="ic">👤</div><h4>Xian Zuyin</h4><p style="margin-bottom:0;">总经理 / GM — 生产运营、质量管理与交付。</p></div>
+        <div class="segc"><div class="ic">👤</div><h4>Liu Guiting</h4><p style="margin-bottom:0;">销售总监 / Sales Director — 全球渠道与大客户管理。</p></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Sales &amp; R&amp;D</div>
+      <div class="seg4">
+        <div class="segc"><div class="ic">🌍</div><h4>Global Sales</h4><p style="margin-bottom:0;">Bilingual team covering 100+ countries, reply within 24 hours, one-stop quotation &amp; after-sales.</p></div>
+        <div class="segc"><div class="ic">🔬</div><h4>R&amp;D Lab</h4><p style="margin-bottom:0;">Custom connectors, cables &amp; packaging; CE / FDA documentation support for OEM clients.</p></div>
+        <div class="segc"><div class="ic">🧪</div><h4>QC Team</h4><p style="margin-bottom:0;">Incoming &amp; finished-goods double inspection under ISO 13485, batch traceability.</p></div>
+        <div class="segc"><div class="ic">📦</div><h4>Logistics</h4><p style="margin-bottom:0;">3–7 days stock dispatch; export packaging for DHL / FedEx / sea freight.</p></div>
+      </div>
+    </div>
+    <div class="band"><h3>Work with the Team Behind 472 Products</h3><span class="btn">Contact Us</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="h1m">The Faces Behind our Success</div><div class="lm">15+ years in medical consumables</div></div>
+      <div class="msec"><h4>Leadership</h4><div class="mgrid"><div class="mcard">Li Zhenzong · Founder</div><div class="mcard">Li Weitao · Chairman</div><div class="mcard">Xian Zuyin · GM</div><div class="mcard">Liu Guiting · Sales Dir.</div></div></div>
+      <div class="msec"><h4>Sales &amp; R&amp;D</h4><div class="mgrid"><div class="mcard">Global Sales</div><div class="mcard">R&amp;D Lab</div><div class="mcard">QC Team</div><div class="mcard">Logistics</div></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">高管卡用姓名+职位双语，真实可信</span></div>
+  </div>
+</section>
+<!-- ================= 10. FAQ ================= -->
+<section class="mock" id="p10">
+  <h2>10. FAQ</h2><span class="path">/faq/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="sec-title">Frequently Asked Questions</div>
+      <div class="sec-sub">MOQ · OEM · Certifications · Delivery · Warranty</div>
+      <div class="proc3">
+        <div class="proc"><div class="no">01</div><h4>Which brands are compatible?</h4><p>90%+ of mainstream monitors: Philips, GE, Mindray, Drager, Fukuda, Nihon Kohden, Bionet, Aeon, etc.</p></div>
+        <div class="proc"><div class="no">02</div><h4>Do you support OEM / ODM?</h4><p>Yes — custom connectors, cable length, logo, packaging and instruction cards are all available.</p></div>
+        <div class="proc"><div class="no">03</div><h4>What certifications do you hold?</h4><p>CE, FDA, ISO 13485, TUV, MDR-compliant. Documentation provided with each order.</p></div>
+        <div class="proc"><div class="no">04</div><h4>What is the MOQ? Can I mix?</h4><p>100 pcs for stock models; mixed models in one order allowed; lower MOQ for OEM trials.</p></div>
+        <div class="proc"><div class="no">05</div><h4>How long is delivery?</h4><p>3–7 days for stock items; 15–25 days for OEM production; express shipping available.</p></div>
+        <div class="proc"><div class="no">06</div><h4>What is the warranty?</h4><p>12-month warranty on all products; defective items replaced free of charge.</p></div>
+      </div>
+    </div>
+    <div class="band"><h3>Still Have Questions?</h3><span class="btn">Contact Us</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="h1m">Frequently Asked Questions</div><div class="lm">MOQ · OEM · Certifications · Delivery · Warranty</div></div>
+      <div class="msec"><h4>Top Questions</h4><div class="mgrid"><div class="mcard">Brands: 90%+</div><div class="mcard">OEM: Yes</div><div class="mcard">CE · FDA</div><div class="mcard">MOQ: 100 pcs</div><div class="mcard">Delivery: 3–7 days</div><div class="mcard">Warranty: 12 months</div></div></div>
+      <div class="msec" style="background:var(--soft);"><h4>Still Have Questions?</h4><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Contact Us</span></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">6 组问答 2 列网格；关键信息前置</span></div>
+  </div>
+</section>
+<!-- ================= 11. 博客 ================= -->
+<section class="mock" id="p11">
+  <h2>11. 博客</h2><span class="path">/blog/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><b>博客</b></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="sec-title">Blog &amp; Resources</div>
+      <div class="sec-sub">Buying guides &amp; compatibility tips from Medke</div>
+      <div class="apps4">
+        <div class="appc"><img src="../public/assets/images/products/ecg-cable/ecg-cable-01.jpg" alt="ECG guide"/><div class="t">ECG 线缆选择指南</div><div class="d">How to pick trunk / leadwire sets</div></div>
+        <div class="appc"><img src="../public/assets/images/products/spo2-sensor/spo2-sensor-01.jpg" alt="SpO2 guide"/><div class="t">SpO2 接头识别</div><div class="d">DB9 / RJ45 / 航空插头快速对照</div></div>
+        <div class="appc"><img src="../public/assets/images/resources/guide-cover.png" alt="Compatibility"/><div class="t">兼容性自查清单</div><div class="d">5 步确认您的型号兼容方案</div></div>
+        <div class="appc"><img src="../public/assets/images/products/temp-probe/temp-probe-01.jpg" alt="Disposable"/><div class="t">一次性 vs 可重复</div><div class="d">采购成本与感染控制权衡</div></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">More Articles</div>
+      <div class="proc3">
+        <div class="proc"><div class="no">05</div><h4>NIBP 袖带与管路保养</h4><p>延长使用寿命的 6 个习惯。</p></div>
+        <div class="proc"><div class="no">06</div><h4>IBP 传感器正确存放</h4><p>避免压力线损坏的存放要点。</p></div>
+        <div class="proc"><div class="no">07</div><h4>胎监探头选购指南</h4><p>US / TOCO 探头与主机匹配速查。</p></div>
+      </div>
+    </div>
+    <div class="band"><h3>Free Compatibility Guide for Your Monitor Fleet</h3><span class="btn">Download Guide</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="h1m">Blog &amp; Resources</div><div class="lm">Buying guides &amp; compatibility tips</div></div>
+      <div class="msec"><h4>Latest Articles</h4><div class="mgrid"><div class="mcard">ECG 线缆选择</div><div class="mcard">SpO2 接头识别</div><div class="mcard">兼容性自查</div><div class="mcard">一次性 vs 可重复</div></div></div>
+      <div class="msec" style="background:var(--soft);"><h4>Free Guide</h4><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Download</span></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">文章卡 2 列 + 下载 CTA；中文标题利于国内评审</span></div>
+  </div>
+</section>
+<!-- ================= 12. 联系 ================= -->
+<section class="mock" id="p12">
+  <h2>12. 联系</h2><span class="path">/contact/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><b>联系我们</b></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="sec-title">Contact Us</div>
+      <div class="sec-sub">We reply within 24 hours on business days</div>
+      <div class="seg4">
+        <div class="segc"><div class="ic">✉️</div><h4>Email</h4><p style="margin-bottom:0;">info@medke.com<br/>sales@medke.com</p></div>
+        <div class="segc"><div class="ic">📞</div><h4>Phone / WhatsApp</h4><p style="margin-bottom:0;">+86 153 0265 4212<br/>Mon–Sat 9:00–18:00 (GMT+8)</p></div>
+        <div class="segc"><div class="ic">📍</div><h4>Address</h4><p style="margin-bottom:0;">Shenzhen, Guangdong, China<br/>展厅可预约参观</p></div>
+        <div class="segc"><div class="ic">🌐</div><h4>Business Hours</h4><p style="margin-bottom:0;">24/7 online inquiry<br/>Email replied within 24h</p></div>
+      </div>
+    </div>
+    <div class="sec" style="background:var(--bg);">
+      <div class="sec-title">Send Us a Message</div>
+      <div class="form" style="max-width:640px;margin:0 auto;">
+        <label>Business Type</label><select><option>Wholesale Agent</option><option>OEM &amp; ODM</option><option>Trader / Repairer</option><option>Broker</option></select>
+        <label>Name</label><input placeholder="Your name" />
+        <label>Email</label><input placeholder="name@company.com" />
+        <label>Tel</label><input placeholder="+86…" />
+        <label>Website</label><input placeholder="https://…" />
+        <label>Message</label><textarea placeholder="Tell us your needs…"></textarea>
+        <div style="margin-top:12px;"><span class="btn" style="width:100%;justify-content:center;">Send Message</span></div>
+      </div>
+    </div>
+    <div class="band"><h3>24-Hour Response Commitment</h3><p class="lead" style="font-size:12px;color:var(--mut);">Every inquiry is answered within 24 hours — quote, technical support or catalog.</p></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="mhero"><div class="h1m">Contact Us</div><div class="lm">info@medke.com · +86 153 0265 4212</div></div>
+      <div class="msec"><h4>Message</h4><div style="display:grid;gap:6px;"><div style="font-size:11px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--meta);">Business Type ▾</div><div style="font-size:11px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--meta);">Name / Email / Tel</div><div style="font-size:11px;border:1px solid var(--line);border-radius:8px;padding:14px 10px;color:var(--meta);">Message…</div></div><div style="margin-top:10px;"><span class="btn" style="width:100%;justify-content:center;">Send</span></div></div>
+      <div class="msec" style="background:var(--soft);"><div class="lm" style="font-size:11px;">24h response commitment on every inquiry.</div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">联系信息卡 2×2 + 全宽表单 + 24h 承诺</span></div>
+  </div>
+</section>
+<!-- ================= 13. 询盘成功 ================= -->
+<section class="mock" id="p13">
+  <h2>13. 询盘成功</h2><span class="path">/inquiry/success/</span>
+  <div class="mw">
+    <div class="mh"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke" /><div class="links"><span>全部产品</span><span>品牌兼容</span><span>应用场景</span><span>关于我们</span><span>联系我们</span></div><div class="sp"></div><span class="btn">Get a Quote</span></div>
+    <div class="sec">
+      <div class="panel-ok">
+        <div class="ic">✓</div>
+        <h3>Inquiry Received</h3>
+        <p>您的询盘编号 <b style="color:var(--ink);">MK-20260817-0042</b> 已提交成功。</p>
+        <p style="margin-top:4px;">我们承诺 <b style="color:var(--cta);">24 小时内</b>回复报价 — 请留意邮箱与 WhatsApp。</p>
+      </div>
+      <div class="seg4" style="margin-top:20px;">
+        <div class="segc"><div class="ic">💬</div><h4>WhatsApp</h4><p style="margin-bottom:0;">即时沟通：+86 153 0265 4212</p></div>
+        <div class="segc"><div class="ic">🏠</div><h4>返回首页</h4><p style="margin-bottom:0;">继续浏览 Medke 全部产品</p></div>
+        <div class="segc"><div class="ic">📚</div><h4>浏览目录</h4><p style="margin-bottom:0;">下载产品目录 PDF</p></div>
+        <div class="segc"><div class="ic">📖</div><h4>阅读博客</h4><p style="margin-bottom:0;">查看兼容性选购指南</p></div>
+      </div>
+    </div>
+    <div class="band"><h3>While You Wait — Explore Our Compatibility Guide</h3><span class="btn">Download Free Guide</span></div>
+    <div class="aux"></div>
+    <div class="fq">
+      <div class="fi">
+        <div><img src="../public/assets/images/logo/medke-logo-white.svg" alt="Medke" /><div class="sl" style="margin-top:8px;">Vital links, Healthier lives.</div><div class="fl">info@medke.com · +86 153 0265 4212 · Shenzhen, China</div></div>
+        <div><div class="sl">Products</div><div class="fl">SpO2 · ESU · AED · NIBP · ECG · IBP · TEMP · EEG</div></div>
+        <div><div class="sl">Company</div><div class="fl">About · Team · Blog · FAQ</div></div>
+        <div><div class="sl">Support</div><div class="fl">Contact · Get a Quote · 24h Reply</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mmwrap">
+    <div class="mm">
+      <div class="mph"><img src="../public/assets/images/logo/medke-logo.svg" alt="Medke"/><div class="sp"></div><div class="b">Quote</div></div>
+      <div class="msec" style="background:var(--soft);">
+        <div style="text-align:center;padding:6px 0;"><div style="width:44px;height:44px;border-radius:50%;background:#0E8345;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">✓</div><div style="font-size:16px;font-weight:700;">Inquiry Received</div><div style="font-size:11px;color:var(--mut);margin-top:6px;">编号 MK-20260817-0042 · 24h 内回复</div></div>
+      </div>
+      <div class="msec"><h4>Next Steps</h4><div class="mgrid"><div class="mcard">WhatsApp</div><div class="mcard">返回首页</div><div class="mcard">下载目录</div><div class="mcard">阅读博客</div></div></div>
+      <div class="mfoot"><b>Medke · Vital links, Healthier lives.</b>info@medke.com · +86 153 0265 4212</div>
+    </div>
+    <div class="mmwrap" style="flex-direction:column;gap:4px;"><span class="tag">成功面板置顶 + 4 个下一步入口，降低流失</span></div>
+  </div>
+</section>
+</main>
+</body>
+</html>

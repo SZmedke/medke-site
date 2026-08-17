@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "siteId": "medke-site",
+  "name": "medke-site",
+  "kind": "react-vite",
+  "devCommand": "vite",
+  "buildCommand": "vite build",
+  "outputDir": "dist",
+  "entry": "index.html",
+  "createdBy": "accio-site-builder",
+  "createdAt": "2026-08-07T07:27:21.208Z",
+  "installedAt": "2026-08-07T08:37:10.269Z",
+  "databaseUrl": "https://supabase.com/dashboard/project/tpdhccknpvmzdqgnmlej",
+  "integrations": {
+    "supabase": {
+      "projectUrl": "https://tpdhccknpvmzdqgnmlej.supabase.co",
+      "projectRef": "tpdhccknpvmzdqgnmlej",
+      "connectedAt": "2026-08-07T08:25:45.384Z"
+    }
+  },
+  "subdomain": "medke",
+  "publishedUrl": "https://medke.site.accio.ai",
+  "publishedAt": "2026-08-07T10:07:47.300Z",
+  "deployId": "dep_1786097260702_d8429875"
+}

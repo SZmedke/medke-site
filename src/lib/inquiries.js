@@ -22,5 +22,7 @@ export async function submitInquiry(payload) {
   if (!res.ok || !data.ok) {
     throw new Error(data.error || 'Failed to save inquiry');
   }
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'submit_inquiry', inquiry_ref: data.ref });
   return { ok: true, ref: data.ref };
 }

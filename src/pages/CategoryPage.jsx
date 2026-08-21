@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { CATEGORIES } from '../data/catalog';
 
 /* ---------- local data (visual-design spec: page 3 / 产品线页) ---------- */
 
@@ -135,13 +136,62 @@ function SectionHead({ title, subtitle }) {
   );
 }
 
-export default function CategoryPage() {
-  const { slug, productLine } = useParams();
-  const key = (slug || productLine || '').toLowerCase();
+/* Catalog categories and subcategories are reachable via /product-category/:slug
+   but have no hand-written PRODUCT_LINES entry. Build an equivalent shape from
+   catalog data so those URLs render a real page instead of "not found". */
+function lineFromCatalog(key) {
+  const category = CATEGORIES.find((c) => c.slug === key);
+  if (category) {
+    const subs = (category.subcategories || []).slice(0, 4).map((s) => ({
+      name: s.name,
+      desc: s.count ? `${s.count} compatible options` : 'Compatible replacements',
+      image: category.image,
+    }));
+    return {
+      short: category.name,
+      eyebrow: category.name.toUpperCase(),
+      title: category.name,
+      lead: category.blurb || `Compatible ${category.name.toLowerCase()} for mainstream patient monitor and ventilator brands.`,
+      image: category.image,
+      subs: subs.length ? subs : [{ name: category.name, desc: 'Compatible replacements', image: category.image }],
+    };
+  }
 
-  const line = PRODUCT_LINES.find(
-    (l) => l.slug === key || l.alias.includes(key)
-  );
+  for (const c of CATEGORIES) {
+    const sub = (c.subcategories || []).find((s) => s.slug === key);
+    if (!sub) continue;
+    const siblings = (c.subcategories || [])
+      .filter((s) => s.slug !== key)
+      .slice(0, 3)
+      .map((s) => ({
+        name: s.name,
+        desc: s.count ? `${s.count} compatible options` : 'Compatible replacements',
+        image: c.image,
+      }));
+    return {
+      short: sub.name,
+      eyebrow: sub.name.toUpperCase(),
+      title: sub.name,
+      lead: `Compatible ${sub.name.toLowerCase()} replacements${sub.count ? ` — ${sub.count} options available` : ''}. Part of ${c.name}, cross-referenced by brand and part number.`,
+      image: c.image,
+      subs: [
+        { name: sub.name, desc: sub.count ? `${sub.count} compatible options` : 'Compatible replacements', image: c.image },
+        ...siblings,
+      ],
+    };
+  }
+  return null;
+}
+
+export default function CategoryPage({ slug: slugProp }) {
+  // Pretty routes (/spo2, /ecg …) carry no URL params, so App passes the slug
+  // in directly; /product-category/:slug still resolves through useParams.
+  const { slug, productLine } = useParams();
+  const key = (slugProp || slug || productLine || '').toLowerCase();
+
+  const line =
+    PRODUCT_LINES.find((l) => l.slug === key || l.alias.includes(key)) ||
+    lineFromCatalog(key);
 
   if (!line) {
     return (

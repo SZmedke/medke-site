@@ -1,5 +1,6 @@
 node_modules
 dist
+.ssr-build
 .accio
 .env
 .env.local
@@ -8,4 +9,7 @@ dist
 
 vite-dev.log
 vite-dev-err.log
+preview-out.log
+preview-err.log
 design/
+shots/

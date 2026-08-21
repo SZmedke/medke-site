@@ -41,9 +41,14 @@ const APPLICATION_LINE_ROUTES = [
 /* Pretty product-line URLs → CategoryPage (resolves the slug natively). */
 const PRODUCT_LINE_PATHS = ['/spo2', '/ecg', '/nibp', '/ibp', '/temperature', '/esu', '/aed', '/eeg'];
 
-export default function App() {
+/* Re-exported so the prerender + sitemap scripts stay in sync with the routes. */
+export { APPLICATION_LINE_ROUTES, PRODUCT_LINE_PATHS };
+
+/* Router-agnostic tree. The browser wraps it in BrowserRouter (entry-client);
+   the prerender script wraps it in StaticRouter (entry-server). */
+export function AppShell() {
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <div className="app-shell">
         <Header />
@@ -70,7 +75,7 @@ export default function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/inquiry/success" element={<InquirySuccessPage />} />
             {PRODUCT_LINE_PATHS.map((p) => (
-              <Route key={p} path={p} element={<CategoryPage />} />
+              <Route key={p} path={p} element={<CategoryPage slug={p.slice(1)} />} />
             ))}
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -78,6 +83,14 @@ export default function App() {
         <Footer />
         <FloatingWhatsApp />
       </div>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppShell />
     </Router>
   );
 }
